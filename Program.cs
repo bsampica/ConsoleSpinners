@@ -7,11 +7,11 @@ namespace SaveFileWatcher
 {
     internal class Program
     {
-        private static string _ProfileSaveName = "playerprofiles8.lsf";
-        private static string _ProfileSavePath = "%USERPROFILE%\\AppData\\Local\\Larian Studios\\Baldur's Gate 3\\PlayerProfiles\\";
-        private static string _HonorModeSaveName = "HonourMode.lsv";
-        private static string _HonorModeSaveImage = "HonourMode.WebP";
-        private static string _HonorModeSaveGamePath = "%USERPROFILE%\\AppData\\Local\\Larian Studios\\Baldur's Gate 3\\PlayerProfiles\\Public\\Savegames\\Story\\db54c19e-3939-8a4a-0930-96573098bf82__HonourMode\\";
+        private static readonly string ProfileSaveName = "playerprofiles8.lsf";
+        private static readonly string ProfileSavePath = "%USERPROFILE%\\AppData\\Local\\Larian Studios\\Baldur's Gate 3\\PlayerProfiles\\";
+        private static readonly string HonorModeSaveName = "HonourMode.lsv";
+        private static readonly string HonorModeSaveImage = "HonourMode.WebP";
+        private static readonly string HonorModeSaveGamePath = "%USERPROFILE%\\AppData\\Local\\Larian Studios\\Baldur's Gate 3\\PlayerProfiles\\Public\\Savegames\\Story\\db54c19e-3939-8a4a-0930-96573098bf82__HonourMode\\";
 
 
         static void Main(string[] args)
@@ -42,11 +42,11 @@ namespace SaveFileWatcher
         static void FindProfileFile(StatusContext context)
         {
             context.Status("[bold green]Looking for profile game files ...[/]");
-            FileInfo profile = new(_ProfileSavePath + _ProfileSaveName);
+            FileInfo profile = new(ProfileSavePath + ProfileSaveName);
             Thread.Sleep(5000);
             if (profile.Exists)
             {
-                AnsiConsole.MarkupLine($"[bold green]Found - {_ProfileSavePath}{_ProfileSaveName}[/]");
+                AnsiConsole.MarkupLine($"[bold green]Found - {ProfileSavePath}{ProfileSaveName}[/]");
                 Thread.Sleep(5000);
             }
             else
@@ -60,12 +60,12 @@ namespace SaveFileWatcher
         static void FindSaveGameFiles(StatusContext context)
         {
             context.Status("[bold green]Looking for save game files ...[/]");
-            FileInfo fiSave = new(_HonorModeSaveGamePath + _HonorModeSaveName);
-            FileInfo fiImage = new(_HonorModeSaveGamePath + _HonorModeSaveImage);
+            FileInfo fiSave = new(HonorModeSaveGamePath + HonorModeSaveName);
+            FileInfo fiImage = new(HonorModeSaveGamePath + HonorModeSaveImage);
 
             if (fiSave.Exists)
             {
-                AnsiConsole.MarkupLine($"[bold green]Found - {_HonorModeSaveGamePath}{_HonorModeSaveName}[/]");
+                AnsiConsole.MarkupLine($"[bold green]Found - {HonorModeSaveGamePath}{HonorModeSaveName}[/]");
             }
             else
             {
@@ -77,7 +77,7 @@ namespace SaveFileWatcher
             if (fiImage.Exists)
             {
 
-                AnsiConsole.MarkupLine($"[bold green]Found - {_HonorModeSaveGamePath}{_HonorModeSaveImage}[/]");
+                AnsiConsole.MarkupLine($"[bold green]Found - {HonorModeSaveGamePath}{HonorModeSaveImage}[/]");
             }
             else
             {
