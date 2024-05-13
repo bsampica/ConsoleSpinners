@@ -1,0 +1,10 @@
+{
+  "version": 2,
+  "dgSpecHash": "cJV05kRHdCyC46eoNv2rRVEN6/xb7ZbCYlM/EX5wA6ON+gQYpxh776Jf7S1M3y032EfsYQVlno7OIAoLwQfwLA==",
+  "success": true,
+  "projectFilePath": "C:\\Users\\Bryan\\Source\\Repos\\SaveFileWatcher\\SaveFileWatcher.csproj",
+  "expectedPackageFiles": [
+    "C:\\Users\\Bryan\\.nuget\\packages\\spectre.console\\0.49.1\\spectre.console.0.49.1.nupkg.sha512"
+  ],
+  "logs": []
+}
