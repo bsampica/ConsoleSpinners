@@ -8,10 +8,10 @@ namespace SaveFileWatcher
     internal class Program
     {
         private static string _ProfileSaveName = "playerprofiles8.lsf";
-        private static string _ProfileSavePath = "C:\\Users\\Bryan\\AppData\\Local\\Larian Studios\\Baldur's Gate 3\\PlayerProfiles\\";
+        private static string _ProfileSavePath = "%USERPROFILE%\\AppData\\Local\\Larian Studios\\Baldur's Gate 3\\PlayerProfiles\\";
         private static string _HonorModeSaveName = "HonourMode.lsv";
         private static string _HonorModeSaveImage = "HonourMode.WebP";
-        private static string _HonorModeSaveGamePath = "C:\\Users\\Bryan\\AppData\\Local\\Larian Studios\\Baldur's Gate 3\\PlayerProfiles\\Public\\Savegames\\Story\\db54c19e-3939-8a4a-0930-96573098bf82__HonourMode\\";
+        private static string _HonorModeSaveGamePath = "%USERPROFILE%\\AppData\\Local\\Larian Studios\\Baldur's Gate 3\\PlayerProfiles\\Public\\Savegames\\Story\\db54c19e-3939-8a4a-0930-96573098bf82__HonourMode\\";
 
 
         static void Main(string[] args)
