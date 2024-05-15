@@ -1,6 +1,6 @@
-﻿using Spectre;
+﻿using System.Diagnostics;
 using Spectre.Console;
-using System.ComponentModel;
+using Exception = System.Exception;
 
 namespace SaveFileWatcher
 
@@ -8,83 +8,105 @@ namespace SaveFileWatcher
     internal class Program
     {
         private static readonly string ProfileSaveName = "playerprofiles8.lsf";
-        private static readonly string ProfileSavePath = "%USERPROFILE%\\AppData\\Local\\Larian Studios\\Baldur's Gate 3\\PlayerProfiles\\";
+
+        private static readonly string ProfileSavePath =
+            "%USERPROFILE%\\AppData\\Local\\Larian Studios\\Baldur's Gate 3\\PlayerProfiles\\";
+
         private static readonly string HonorModeSaveName = "HonourMode.lsv";
         private static readonly string HonorModeSaveImage = "HonourMode.WebP";
-        private static readonly string HonorModeSaveGamePath = "%USERPROFILE%\\AppData\\Local\\Larian Studios\\Baldur's Gate 3\\PlayerProfiles\\Public\\Savegames\\Story\\db54c19e-3939-8a4a-0930-96573098bf82__HonourMode\\";
 
+        private static readonly string HonorModeSaveGamePath =
+            "%USERPROFILE%\\AppData\\Local\\Larian Studios\\Baldur's Gate 3\\PlayerProfiles\\Public\\Savegames\\Story\\cde0e96c-7bee-7aad-55c4-142d7afb149d__HonourMode\\";
+
+        private static bool _runSuccess = true;
 
         static void Main(string[] args)
         {
-            Console.WriteLine("");
-            AnsiConsole.MarkupLine("[bold blue]Starting file search...[/]");
-            AnsiConsole.Status()
-                   .AutoRefresh(true)
-                   .Spinner(Spinner.Known.Bounce)
-                   .SpinnerStyle(Style.Parse("green bold"))
-                   .Start("Cool text here...", ctx =>
-                   {
-                       AnsiConsole.MarkupLine("Looking for the profile File...");
-                       FindProfileFile(ctx);
-                       Thread.Sleep(5000);
+            // TODO: Just to remove the warning about not being used.
+            _ = args;
 
-                       AnsiConsole.MarkupLine("Looking for the save game files");
-                       FindSaveGameFiles(ctx);
-                       Thread.Sleep(5000);
+            AnsiConsole.MarkupLine(" ... Beginning Program ...");
 
-                       AnsiConsole.MarkupLine("[blue] - DONE - [/]");
-                   });
+            // TODO: Currently dumping the return of GetFileReference...do something with it.
+            // Looking for the profile info
+            var profileFileReference = GetFileReference(ProfileSavePath, ProfileSaveName);
+            _ = TryToCopyFile(profileFileReference);
 
-            AnsiConsole.MarkupLine(" - [bold white] [[ Press any key to exit ]] [/] -");
+            
+            // TODO: Currently dumping the return of GetFileReference...do something with it
+            // looking for the save game files
+            var honorModeSaveGameFile = GetFileReference(HonorModeSaveGamePath, HonorModeSaveName);
+            var honorModeImageFile = GetFileReference(HonorModeSaveGamePath, HonorModeSaveImage);
+
+            if (honorModeSaveGameFile.Exists)
+            {
+                AnsiConsole.MarkupLine("File was found...doing something important.");
+                _runSuccess = TryToCopyFile(honorModeSaveGameFile);
+            }
+            else
+            {
+                _runSuccess = false;
+            }
+            
+            //TODO: 
+            if (honorModeImageFile.Exists)
+            {
+                AnsiConsole.MarkupLine("File was found...doing something important.");
+                _runSuccess = TryToCopyFile(honorModeImageFile);
+            }
+            else
+            {
+                _runSuccess = false;
+            }
+
+            if (!_runSuccess)
+            {
+                AnsiConsole.MarkupLine("");
+                AnsiConsole.MarkupLine("");
+                AnsiConsole.MarkupLine(
+                    "[bold red]File backup could not be completed.  At least one of the files could not be found to backup.[/]");
+            }
+
+            AnsiConsole.MarkupLine("Press any key to exit the program...");
             Console.ReadLine();
         }
 
-        static void FindProfileFile(StatusContext context)
+        private static bool TryToCopyFile(FileInfo fi)
         {
-            context.Status("[bold green]Looking for profile game files ...[/]");
-            FileInfo profile = new(ProfileSavePath + ProfileSaveName);
-            Thread.Sleep(5000);
-            if (profile.Exists)
+            try
             {
-                AnsiConsole.MarkupLine($"[bold green]Found - {ProfileSavePath}{ProfileSaveName}[/]");
-                Thread.Sleep(5000);
-            }
-            else
-            {
-                AnsiConsole.MarkupLine($"[bold red]Could not locate profile...[/]");
-                Thread.Sleep(5000);
+                var guidPart = Guid.NewGuid().ToString()[..4];
+                var tempFileName = fi.Name.Split('.')[0];
+                var newFileName = $"{tempFileName}-{guidPart}{fi.Extension}.bak";
+                var newFileInfo = fi.CopyTo(fi.DirectoryName + "\\" + newFileName);
+                AnsiConsole.MarkupLine($"[bold green]File Copied : [[ {newFileName} ]][/]");
+                Debug.WriteLine($"New File: {newFileInfo.FullName}");
+                return true;
             }
 
+            catch (Exception e)
+            {
+                //TODO:  Handle the exception in some way other than just moving on
+                AnsiConsole.MarkupLine($"File could [bold red] NOT [/] be copied...");
+                Debug.WriteLine(e.Message);
+            }
+
+            return true;
         }
 
-        static void FindSaveGameFiles(StatusContext context)
+        private static FileInfo GetFileReference(string filePath, string fileName)
         {
-            context.Status("[bold green]Looking for save game files ...[/]");
-            FileInfo fiSave = new(HonorModeSaveGamePath + HonorModeSaveName);
-            FileInfo fiImage = new(HonorModeSaveGamePath + HonorModeSaveImage);
+            var pathExpanded = Environment.ExpandEnvironmentVariables(filePath);
+            var fullFileName = Path.Combine(pathExpanded, fileName);
+            //AnsiConsole.MarkupLine(fullFileName);
 
-            if (fiSave.Exists)
-            {
-                AnsiConsole.MarkupLine($"[bold green]Found - {HonorModeSaveGamePath}{HonorModeSaveName}[/]");
-            }
-            else
-            {
-                AnsiConsole.MarkupLine($"[bold red]Could not locate honor mode save path [/]");
-                AnsiConsole.MarkupLine($"[bold red]This is a hard failure, the program cannot coninue[/]");
-                return;
-            }
+            var fileInfoReference = new FileInfo(fullFileName);
+            AnsiConsole.MarkupLine(
+                !fileInfoReference.Exists
+                    ? $"[bold red]File was not found: [/][bold white] [[ {fileInfoReference.Name} ]][/]"
+                    : $"[bold green]File Found        : [/][bold white] [[ {fileInfoReference.Name} ]][/]");
 
-            if (fiImage.Exists)
-            {
-
-                AnsiConsole.MarkupLine($"[bold green]Found - {HonorModeSaveGamePath}{HonorModeSaveImage}[/]");
-            }
-            else
-            {
-                AnsiConsole.MarkupLine($"[bold yellow]Could not locate the honor mode save image ...[/]");
-                AnsiConsole.MarkupLine($"[bold yellow]This isn't a hard failure, the game can continue without this file...[/]");
-
-            }
+            return fileInfoReference;
         }
     }
 }
