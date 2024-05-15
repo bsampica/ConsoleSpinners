@@ -11,7 +11,7 @@ namespace SaveFileWatcher
         public FileWatcher(string filePath)
         {
             this.filePath = filePath;
-            fileSystemWatcher = new FileSystemWatcher(Path.GetDirectoryName(filePath), Path.GetFileName(filePath));
+            fileSystemWatcher = new FileSystemWatcher(Path.GetDirectoryName(filePath)!, Path.GetFileName(filePath));
             fileSystemWatcher.Changed  += OnFileChanged;
             fileSystemWatcher.Created += OnFileChanged;
 
