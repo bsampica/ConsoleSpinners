@@ -5,6 +5,10 @@
     {
       "AbsoluteMoniker": "D:0:0:{B3250A9E-0F79-4DD9-A71D-85037DE4EAFD}|SaveFileWatcher.csproj|c:\\users\\bryan\\source\\repos\\savefilewatcher\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{B3250A9E-0F79-4DD9-A71D-85037DE4EAFD}|SaveFileWatcher.csproj|solutionrelative:program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{B3250A9E-0F79-4DD9-A71D-85037DE4EAFD}|SaveFileWatcher.csproj|c:\\users\\bryan\\source\\repos\\savefilewatcher\\searchspinner.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{B3250A9E-0F79-4DD9-A71D-85037DE4EAFD}|SaveFileWatcher.csproj|solutionrelative:searchspinner.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     }
   ],
   "DocumentGroupContainers": [
@@ -14,11 +18,23 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 1,
+          "SelectedChildIndex": 2,
           "Children": [
             {
               "$type": "Bookmark",
               "Name": "ST:0:0:{d84ee353-0bef-5a41-a649-8f89aca5d84d}"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "SearchSpinner.cs",
+              "DocumentMoniker": "C:\\Users\\Bryan\\Source\\Repos\\SaveFileWatcher\\SearchSpinner.cs",
+              "RelativeDocumentMoniker": "SearchSpinner.cs",
+              "ToolTip": "C:\\Users\\Bryan\\Source\\Repos\\SaveFileWatcher\\SearchSpinner.cs",
+              "RelativeToolTip": "SearchSpinner.cs",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAQAAAAsAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-05-17T01:22:33.963Z"
             },
             {
               "$type": "Document",
@@ -28,7 +44,7 @@
               "RelativeDocumentMoniker": "Program.cs",
               "ToolTip": "C:\\Users\\Bryan\\Source\\Repos\\SaveFileWatcher\\Program.cs",
               "RelativeToolTip": "Program.cs",
-              "ViewState": "AQIAABQAAAAAAAAAAAAAwB4AAAAAAAAA",
+              "ViewState": "AQIAACQAAAAAAAAAAAAAwD4AAAAiAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2024-05-12T16:17:20.929Z",
               "EditorCaption": ""

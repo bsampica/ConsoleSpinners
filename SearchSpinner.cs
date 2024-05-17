@@ -2,10 +2,10 @@ using Spectre.Console;
 
 namespace SaveFileWatcher
 {
-    public sealed class SaveSpinner : Spinner
+    public sealed class SearchSpinner : Spinner
     { // The interval for each frame
         
-        public SaveSpinner() {
+        public SearchSpinner() {
             // default constructor
         }
         
