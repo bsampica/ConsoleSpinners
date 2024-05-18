@@ -47,7 +47,7 @@ namespace SaveFileWatcher
 
 
             // Add some some extra space below the rendered spinners when the program exits.
-            AddLineSpace(3);
+            AddLineSpace(1);
             AnsiConsole.MarkupLine("[bold blue] -- Exiting Program -- [/]");
 
         }
@@ -92,8 +92,11 @@ namespace SaveFileWatcher
                     pos++;
                     col = 0;
                 }
+
+                AddLineSpace(4);
+
             }
-           
+            AnsiConsole.MarkupLine("-- [bold yellow]Press the[/] [bold white][[ ESC ]][/] [bold yellow]key to exit --[/]");
             Thread.Sleep(50);
         }
 
